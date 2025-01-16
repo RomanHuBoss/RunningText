@@ -1,0 +1,12 @@
+* {
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Tahoma, Arial, Verdana, sans-serif;
+}
+
+body {
+    width: 0;
+    height: 0;
+}

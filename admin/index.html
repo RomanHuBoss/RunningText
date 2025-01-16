@@ -7,9 +7,73 @@
 </head>
 
 <body>
+    <div class="panel-wrapper">
+        <header class="panel-header">Панель администатора бегущей строки</header>
+        <main class="panel-content">
+            <section class="settings-wrapper">
+                <header class="settings-header">Общие настройки</header>
+                <div class="settings-form">
+                    <div class="settings-form-group">
+                        <label for="sections-number">Число секций</label>
+                        <input id="sections-number" type="number" min="3" max="4" value="3"/>
+                    </div>
+                    
+                    <div class="settings-form-group">
+                        <label for="font-size-coeff">Размер шрифта (меньше-больше)</label>
+                        <input id="font-size-coeff" type="range" min="0.1" max="0.9" step="0.01" value="0.25"/>
+                    </div>
 
+                    <div class="settings-form-group">
+                        <label for="speed">Скорость бегущей строки (медленнее-быстрее)</label>
+                        <input id="speed" type="range" min="1" max="100" step="1" value="2"/>
+                    </div>
+
+                    <div class="background-settings-wrapper">
+                        <h3 class="settings-subheader">Фон бегущей строки</h3>
+
+                        <div class="group-of-radios">
+                            <div class="settings-form-group labeled-radio">
+                                <input id="USE_BACKGROUND_GRADIENT" type="radio" name="background-type"/>                    
+                                <label for="USE_BACKGROUND_GRADIENT">Градиент</label>
+                            </div>
+
+                            <div class="settings-form-group labeled-radio">
+                                <input id="USE_BACKGROUND_IMAGE" type="radio" name="background-type"/>                    
+                                <label for="USE_BACKGROUND_IMAGE">Картинка</label>
+                            </div>
+
+                            <div class="settings-form-group labeled-radio">
+                                <input id="USE_BACKGROUND_VIDEO" type="radio" name="background-type"/>                        
+                                <label for="USE_BACKGROUND_VIDEO">Видео</label>
+                            </div>
+                        </div>
+
+                        <div class="background-gradient-settings-panel">
+                            
+                        </div>
+
+                        <div class="background-image-settings-panel">
+                            
+                        </div>
+
+                        <div class="background-gradient-settings-panel">
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="settings-wrapper">
+                <header class="settings-header">Настройка сообщений</header>
+            </section>
+
+        </main>
+    </div>
+
+    <iframe id="communicator" src="../communicator/iframe.html"></iframe>
 </body>
 
-<script src="./constants.js"></script>
 <script src="./main.js"></script>
 </html>

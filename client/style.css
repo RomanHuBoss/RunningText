@@ -5,6 +5,11 @@
     font-family: Tahoma, Arial, Verdana, sans-serif;
 }
 
+iframe#communicator {
+    width: 0;
+    height: 0;
+}
+
 body {
     width: 100vw;
     height: 100vh;
@@ -18,9 +23,8 @@ body {
 .section {
     width: 100%;
     height: 100%;
-    display: flex;
     border: 1px solid black;
-    background: linear-gradient(45deg, darkblue, black, darkblue);
+    background-color: darkblue;
     position: relative;
     overflow: hidden;
 }
@@ -32,21 +36,27 @@ body {
 .text-wrapper {
     height: 100%;
     position: absolute;
-    left: 100vw;
+    left: 0;
+    right: 0;
     display: flex;
     flex-direction: row;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
     color: white;
     text-shadow: 2px 2px 0px lightgray;
     font-weight: bold;
     text-transform: uppercase;
     z-index: 1000;
+    white-space: nowrap;
+}
+
+.with-animation {
+    left: auto;
+    right: auto;    
     animation-delay: 0s;
     animation-name: running;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
-    white-space: nowrap;
 }
 
 .video-wrapper {
@@ -58,7 +68,7 @@ body {
 
 .video-wrapper video {
     position: absolute;
-    top: -50px;
+    top: 0;
     width: 100vw;
-    opacity: 0.2;
+    opacity: 0.3;
 }
