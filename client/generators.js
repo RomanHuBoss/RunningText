@@ -81,16 +81,21 @@ const generateTextWrapper = () => {
 //рассчитывает скорость бегущей строки с учетом коэффициентов
 const startAnimation = () => {
     if (SETTINGS.MESSAGES.length || SETTINGS.DEFAULT_MESSAGE_ANIMATION) {
-        //скорость равна число букв прошедших ч/з единицу экрана в единицу времени
-        const speed = 100 - Math.log1p(Math.pow(2, getRawText().length * SETTINGS.SPEED));
-
-
         const textWrappers = Array.prototype.slice.call(document.querySelectorAll(".text-wrapper"), 0);
+
+        //путь, который каждая буква преодолеет за одну прокрутку строки (в пикселах)
+        const wayInPixels = window.innerWidth + textWrappers[0].offsetWidth;
+
+        //первичная скорость (пиксели в секунду)
+        const speed = 5 + SETTINGS.SPEED * Math.pow(SETTINGS.SPEED, 1/Math.E);
+
+        const time = wayInPixels / speed;
+
         textWrappers.forEach((textWrapper) => {
             textWrapper.classList.add('with-animation');
-            textWrapper.style.animationDuration = `${speed}s`;
+            textWrapper.style.animationDuration = `${time}s`;
         });
-        console.log(speed, getRawText().length, SETTINGS.SPEED);
+        console.log(time, speed, getRawText().length, SETTINGS.SPEED);
     } else {
         textWrapper.classList.remove('with-animation');
         textWrapper.style.animationDuration = 0;

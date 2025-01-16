@@ -53,5 +53,5 @@ const SETTINGS = {
     DELIMETER_SIZE: DEFAULT_DELIMETER_SIZE,
     DEFAULT_MESSAGE: DEFAULT_MESSAGE,
     DEFAULT_MESSAGE_ANIMATION: DEFAULT_MESSAGE_ANIMATION,
-    MESSAGES: ['AA'], //по умолчанию массив сообщений пуст
+    MESSAGES: [], //по умолчанию массив сообщений пуст
 };
