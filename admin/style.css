@@ -2,6 +2,7 @@
     font-weight: normal;
     margin: 0;
     padding: 0;
+    border: 0;
     box-sizing: border-box;
     font-family: Tahoma, Arial, Verdana, sans-serif;
 }
@@ -9,6 +10,7 @@
 iframe#communicator {
     width: 0;
     height: 0;
+    border: 0;
 }
 
 body {
