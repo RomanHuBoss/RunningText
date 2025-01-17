@@ -1,71 +1,56 @@
-let iframe = null;
+let CURRENT_SETTINGS = JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
 
 //включаемся по факту загрузки DOM-модели
-window.addEventListener("DOMContentLoaded", (e) => {
-    iframe = document.querySelector('iframe');
-    setBackgroundTypeChangeListeners();
-    setSectionsNumberChangeListener();
-    setFontSizeChangeListener();
-    setSpeedChangeListener();
-});
+window.addEventListener("DOMContentLoaded", (e) =>  {
+    startPreloading();
+    let interval = null;
 
-//адаптация контента к изменениям размера окна браузера
-window.addEventListener("resize", (e) => {
+    new Promise((resolve, reject) => {
+        getAllStorageProperties();
+        const startTime = Date.now();
+
+        interval = setInterval(() => {
+            if (!isPreloading()) {
+                resolve();
+            }
+            if ((Date.now() - startTime) / 1000 > DEFAULT_SETTINGS.LOADING_TIMEOUT) {
+                reject();
+            }
+        }, 50);
+    }).then(() => {
+        console.log("Settings successfully initialized from localsorage");
+    }).catch(() => {
+        console.log("Can't initialize settings from localsorage");
+    }).finally(() => {
+        clearInterval(interval);
+        if (isPreloading()) {
+            stopPreloading();
+        }
+        autoConnectHandlers();
+    });
+
 });
 
 window.addEventListener("message", (event) => {
     console.log('Admin panel got message: ', event.data);
+
+    if (event.data.hasOwnProperty("payload") &&
+        event.data.payload.hasOwnProperty("operation") &&
+        event.data.payload.operation === "get_all" &&
+        event.data.payload.hasOwnProperty("data")) {
+            stopPreloading();
+            const storageData = event.data.payload.data;
+            Object.keys(storageData).forEach((key) => {
+                CURRENT_SETTINGS[key] = storageData[key] || DEFAULT_SETTINGS[key];
+            });
+
+            console.log("Current settings", CURRENT_SETTINGS);
+            for (const key in Object.keys(CURRENT_SETTINGS)) {
+
+            }
+    }
 });
 
-//слушаем изменения типа фона
-const setBackgroundTypeChangeListeners = () => {
-    const radios = Array.prototype.slice.call(document.querySelectorAll("input[name='background-type']"), 0);
-    radios.forEach(radio => {
-        radio.addEventListener("change", (e) => {
-            const selectedRadio = e.target;
-            sendSetMessage('background-type', selectedRadio.id);
-        });
-    });
-};
-
-//слушаем изменения числа секций
-const setSectionsNumberChangeListener = () => {
-    const sectionNumberEl = document.querySelector("input[id='sections-number']");
-    sectionNumberEl.addEventListener("change", (e) => {
-        sendSetMessage('sections-number', e.target.value);
-    });
-};
-
-//слушаем изменение размера шрифта
-const setFontSizeChangeListener = () => {
-    const fontSizeEl = document.querySelector("input[id='font-size-coeff']");
-    fontSizeEl.addEventListener("change", (e) => {
-        sendSetMessage('font-size-coeff', e.target.value);
-    });
-};
-
-//слушаем изменение скорости бегущей строки
-const setSpeedChangeListener = () => {
-    const speedEl = document.querySelector("input[id='speed']");
-    speedEl.addEventListener("change", (e) => {
-        sendSetMessage('speed', e.target.value);
-    });
-};
 
 
-//отправка сообщения на коммуникатор
-const sendSetMessage = (property, value) => {
-    iframe.contentWindow.postMessage({
-        operation: 'set',
-        key: property,
-        value: value,
-    }, "*");
-};
 
-//отправка сообщения на коммуникатор
-const sendGetMessage = (property) => {
-    iframe.contentWindow.postMessage({
-        operation: 'get',
-        key: property,
-    }, "*");
-};

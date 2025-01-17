@@ -1,7 +1,14 @@
+// изменился угол градиента
+const handleSetBackgroundGradientAngle = (eOldValue, eNewValue) => {
+    SETTINGS.BACKGROUND_GRADIENT_ANGLE = eNewValue >= 0 & eNewValue <= 360 ? eNewValue : DEFAULT_BACKGROUND_GRADIENT_ANGLE;
+    generateSectionsBackground();
+};
+
+
 // изменилась скорость
 const handleSetSpeed = (eOldValue, eNewValue) => {
     SETTINGS.SPEED = eNewValue >= 1 & eNewValue <= 100 ? eNewValue : DEFAULT_SPEED;
-    startAnimation();
+    generateSections();
 };
 
 // изменился размер шрифта
@@ -29,4 +36,5 @@ const propSetHandlers = {
     'sections-number': handleSetSectionsNumber,
     'font-size-coeff': handleSetFontSizeCoeff,
     'speed': handleSetSpeed,
+    'background-gradient-angle': handleSetBackgroundGradientAngle,
 };

@@ -5,8 +5,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 //адаптация контента к изменениям размера окна браузера
 window.addEventListener("resize", () => {
-    generateTextSize();
-    generateAnimation();
+    generateSections();
 });
 
 window.addEventListener("message", (event) => {

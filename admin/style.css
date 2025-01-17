@@ -25,8 +25,8 @@ body {
 }
 
 .panel-wrapper {
-    width: calc(min(80vw, 1024px));
-    height: calc(min(70vh, 768px));
+    width: 1024px;
+    height: 768px;
     background-color: white;
     border: solid #000066 4px;
     border-radius: 20px;
@@ -110,6 +110,10 @@ body {
     margin-top: 0.3rem;
 }
 
+.settings-form input[type="color"] {
+    margin-top: 0;
+}
+
 .settings-form input[type="number"] {
     font-size: 1rem;
     border: 2px solid #888;
@@ -127,6 +131,12 @@ body {
     flex-direction: column;
 }
 
+.background-settings-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
 .settings-subheader {
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
@@ -136,6 +146,9 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    border-bottom: 1px solid gray;
+    padding-bottom: 0.7rem;
+    margin-bottom: 0.7rem;
 }
 
 .labeled-radio {
@@ -145,6 +158,101 @@ body {
     gap: 0.5rem;
 }
 
+.button {
+    width: 100%;
+    padding: 0.3rem;
+    border: 1px solid gray;
+    background: linear-gradient(lightgray, #aaa);
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.button:active {
+    background: linear-gradient(#aaa, lightgray);
+}
+
+.gradient-colors {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+.gradientColorPickerWrapper {
+    position: relative;
+    width: 24%;
+}
+
+.gradientColorPickerWrapper::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    content: attr(data-serial-number);
+    color: white;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 1px black;
+}
+
+.color-picker {
+    width: 100%;
+    cursor: pointer;
+}
+
+.color-picker-remover {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    border: 1px solid black;
+    padding: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
 .background-gradient-settings-panel, .background-image-settings-panel, .background-video-settings-panel {
 
+}
+
+.preloader-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 1rem;
+    gap: 1rem;
+}
+
+.preloader {
+    width: 8rem;
+    height: 8rem;
+    border: 1rem solid #FFF;
+    border-bottom-color: #FF3D00;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.hidden {
+    display: none;
 }

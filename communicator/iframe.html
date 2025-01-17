@@ -2,53 +2,12 @@
 <html>
     <head>
         <link href="./style.css" rel="stylesheet">
-
-        <script>
-            window.addEventListener("message", (event) => {
-                const key = event.data.hasOwnProperty('key') ? event.data.key : null;
-                const operation = event.data.hasOwnProperty('operation') ? event.data.operation : null;
-                const value = event.data.hasOwnProperty('value') ? event.data.value : null;
-
-                if (operation == 'set' && key && value) {
-                    const oldValue = localStorage.getItem(key);
-                    localStorage.setItem(key, value);
-
-                    const storageEvent = new StorageEvent('storage', {
-                        key: key,
-                        oldValue: oldValue,
-                        newValue: value,
-                        url: window.location.href,
-                        storageArea: localStorage
-                    });
-
-                    window.dispatchEvent(storageEvent);
-                } else if (operation == 'get' && key) {
-                    event.source.postMessage({
-                        eSource: 'communicator',
-                        eObject: 'storage',
-                        eEvent: 'replied',
-                        eKey: key,
-                        eValue: localStorage.getItem(key),
-                    }, '*');                    
-                } else if (operation == 'get_all_data') {
-
-                }
-            });
-
-            window.addEventListener("storage", (e) => {
-                window.top.postMessage({
-                    eSource: 'communicator',
-                    eObject: 'storage',
-                    eEvent: 'changed',
-                    eKey: e.key,
-                    eOldValue: e.oldValue,
-                    eNewValue: e.newValue,
-                }, "*");
-            });
-        </script>
+        <script src="../common/constants.js"></script>
+        <script src="./main.js"></script>
     </head>
 
     <body>
+    <span id="proxy"></span>
     </body>
 
 </html>

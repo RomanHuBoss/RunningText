@@ -45,10 +45,10 @@ const generateSections = () => {
         const textWrapper = generateTextWrapper();
         section.appendChild(textWrapper);
     }
+
     generateSectionsBackground();
     generateTextSize();
-    generateAnimation();
-    startAnimation();
+    restartAnimation();
 }
 
 //получение текста для секции (либо статический, если нет сообщений, либо склеенные сообщения)
@@ -78,24 +78,31 @@ const generateTextWrapper = () => {
     return textWrapper;
 }
 
-//рассчитывает скорость бегущей строки с учетом коэффициентов
-const startAnimation = () => {
+//запускает/перезапускает анимацию (изменилась скорость и т.п.)
+const restartAnimation = () => {
     if (SETTINGS.MESSAGES.length || SETTINGS.DEFAULT_MESSAGE_ANIMATION) {
         const textWrappers = Array.prototype.slice.call(document.querySelectorAll(".text-wrapper"), 0);
+
+        textWrappers.forEach((textWrapper) => {
+            textWrapper.classList.add('with-animation');
+        });
 
         //путь, который каждая буква преодолеет за одну прокрутку строки (в пикселах)
         const wayInPixels = window.innerWidth + textWrappers[0].offsetWidth;
 
-        //первичная скорость (пиксели в секунду)
+        //скорость (пиксели в секунду)
         const speed = 5 + SETTINGS.SPEED * Math.pow(SETTINGS.SPEED, 1/Math.E);
 
         const time = wayInPixels / speed;
 
         textWrappers.forEach((textWrapper) => {
-            textWrapper.classList.add('with-animation');
             textWrapper.style.animationDuration = `${time}s`;
         });
-        console.log(time, speed, getRawText().length, SETTINGS.SPEED);
+        
+        generateAnimation();
+
+        //console.log(`way in pixels=${wayInPixels}, window.innerWidth=${window.innerWidth}, elementWidth=${textWrappers[0].offsetWidth}, time=${time}, speed=${speed}, rawText=${getRawText().length}`);
+
     } else {
         textWrapper.classList.remove('with-animation');
         textWrapper.style.animationDuration = 0;
@@ -117,13 +124,13 @@ const generateAnimation = () => {
     styleSheet.type = 'text/css';
     styleSheet.rel = 'stylesheet';
     document.head.appendChild(styleSheet);
-
+    //console.log(textWrapper.offsetWidth);
     styleSheet.sheet.insertRule(`@keyframes running {           
         0%{ 
             left: 100vw; 
         } 
         100%{ 
-            left: -${textWrapper.clientWidth}px; 
+            left: -${textWrapper.offsetWidth}px; 
         } 
     }`, styleSheet.length);
 };
@@ -135,8 +142,17 @@ const generateVideoTags = () => {
             <source type="video/mp4" src="${SETTINGS.BACKGROUND_VIDEO}"/>
         </video>
     `;
-    div = document.createElement("div");
+    const div = document.createElement("div");
     div.classList.add("video-wrapper");
     div.innerHTML = tmp;
     return div;
+};
+
+const hidePreloadingLayer = () => {
+    const preloadWrapper = document.querySelector(".preloader-wrapper");
+    const panelWrapper = document.querySelector(".panel-wrapper");
+
+    preloadWrapper.classList.add("hidden");
+    panelWrapper.classList.remove("hidden");
+
 };

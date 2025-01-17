@@ -7,25 +7,32 @@
 </head>
 
 <body>
-    <div class="panel-wrapper">
+    <iframe id="communicator" src="../communicator/iframe.html"></iframe>
+
+    <div class="preloader-wrapper">
+        <div class="preloader"></div>
+        <div class="preloader-text">Загрузка информации из хранилища...</div>
+    </div>
+
+    <div class="panel-wrapper hidden">
         <header class="panel-header">Панель администатора бегущей строки</header>
         <main class="panel-content">
             <section class="settings-wrapper">
                 <header class="settings-header">Общие настройки</header>
                 <div class="settings-form">
                     <div class="settings-form-group">
-                        <label for="sections-number">Число секций</label>
-                        <input id="sections-number" type="number" min="3" max="4" value="3"/>
+                        <label for="sections-number">Число секций бегущих строк на экране</label>
+                        <input id="sections-number" type="number" min="3" max="4" value="3" class="auto-connected-handlers" data-storage-property="SECTIONS_NUMBER" data-event="change" data-handler="sectionsNumberChangeHandler"/>
                     </div>
                     
                     <div class="settings-form-group">
                         <label for="font-size-coeff">Размер шрифта (меньше-больше)</label>
-                        <input id="font-size-coeff" type="range" min="0.1" max="0.9" step="0.01" value="0.25"/>
+                        <input id="font-size-coeff" type="range" min="0.1" max="0.9" step="0.01" value="0.25" class="auto-connected-handlers" data-storage-property="FONT_SIZE_COEFF" data-event="change" data-handler="fontSizeCoeffChangeHandler"/>
                     </div>
 
                     <div class="settings-form-group">
                         <label for="speed">Скорость бегущей строки (медленнее-быстрее)</label>
-                        <input id="speed" type="range" min="1" max="100" step="1" value="2"/>
+                        <input id="speed" type="range" min="1" max="100" step="1" value="2" class="auto-connected-handlers" data-storage-property="SPEED" data-event="change" data-handler="speedChangeHandler"/>
                     </div>
 
                     <div class="background-settings-wrapper">
@@ -33,30 +40,40 @@
 
                         <div class="group-of-radios">
                             <div class="settings-form-group labeled-radio">
-                                <input id="USE_BACKGROUND_GRADIENT" type="radio" name="background-type"/>                    
-                                <label for="USE_BACKGROUND_GRADIENT">Градиент</label>
+                                <input id="use-background-gradient" type="radio" value="gradient" name="background-type" class="auto-connected-handlers" data-storage-property="BACKGROUND_TYPE"  data-event="change" data-handler="backgroundTypeChangeHandler"/>
+                                <label for="use-background-gradient">Градиент</label>
                             </div>
 
                             <div class="settings-form-group labeled-radio">
-                                <input id="USE_BACKGROUND_IMAGE" type="radio" name="background-type"/>                    
-                                <label for="USE_BACKGROUND_IMAGE">Картинка</label>
+                                <input id="use_background_image" type="radio" value="image" name="background-type" class="auto-connected-handlers" data-storage-property="BACKGROUND_TYPE" data-event="change" data-handler="backgroundTypeChangeHandler"/>
+                                <label for="use_background_image">Картинка</label>
                             </div>
 
                             <div class="settings-form-group labeled-radio">
-                                <input id="USE_BACKGROUND_VIDEO" type="radio" name="background-type"/>                        
-                                <label for="USE_BACKGROUND_VIDEO">Видео</label>
+                                <input id="use_background_video" type="radio" value="video" name="background-type" class="auto-connected-handlers" data-storage-property="BACKGROUND_TYPE" data-event="change" data-handler="backgroundTypeChangeHandler"/>
+                                <label for="use_background_video">Видео</label>
                             </div>
                         </div>
 
-                        <div class="background-gradient-settings-panel">
+                        <div id="gradient-settings" class="background-settings-panel">
+                            <div class="settings-form-group">
+                                <label for="background-gradient-angle">Угол поворота градиента (0-360&#176;)</label>
+                                <input id="background-gradient-angle" type="number" min="0" max="360" value="45" class="auto-connected-handlers" data-storage-property="BACKGROUND_GRADIENT_ANGLE" data-event="change" data-handler="backgroundGradientAngleChangeHandler"/>
+                            </div>                                                                
+                            <div>
+                                <button id="addGradientColorBtn" class="button auto-connected-handlers" data-event="click" data-handler="addGradientColorBtnClickHandler">Добавить цвет градиента</button>
+                            </div>                            
+
+                            <div class="gradient-colors auto-connected-handlers" data-storage-property="BACKGROUND_GRADIENT_COLORS" data-event="gradientColorsCollectionChange" data-handler="gradientColorsCollectionChangeHandler">
+
+                            </div>
+                        </div>
+
+                        <div id="image-settings"  class="background-settings-panel">
                             
                         </div>
 
-                        <div class="background-image-settings-panel">
-                            
-                        </div>
-
-                        <div class="background-gradient-settings-panel">
+                        <div id="video-settings"  class="background-settings-panel">
                             
                         </div>
 
@@ -72,8 +89,12 @@
         </main>
     </div>
 
-    <iframe id="communicator" src="../communicator/iframe.html"></iframe>
+
 </body>
 
+<script src="../common/constants.js"></script>
+<script src="../common/useful.js"></script>
+<script src="./generators.js"></script>
+<script src="./eventHandlers.js"></script>
 <script src="./main.js"></script>
 </html>
