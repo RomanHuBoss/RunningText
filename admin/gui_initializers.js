@@ -27,6 +27,26 @@ const initializeGUIComponents = () => {
     gradientAngleEl.setAttribute("max", VALIDATORS.BACKGROUND_GRADIENT_ANGLE__RANGE[1]);
     gradientAngleEl.setAttribute("step", VALIDATORS.BACKGROUND_GRADIENT_ANGLE__RANGE[2]);
     gradientAngleEl.value = CURRENT_SETTINGS.BACKGROUND_GRADIENT_ANGLE;
+
+    const delimeterSizeEl = document.querySelector("[data-storage-property='DELIMETER_SIZE']");
+    delimeterSizeEl.setAttribute("min", VALIDATORS.DELIMETER_SIZE__RANGE[0]);
+    delimeterSizeEl.setAttribute("max", VALIDATORS.DELIMETER_SIZE__RANGE[1]);
+    delimeterSizeEl.setAttribute("step", VALIDATORS.DELIMETER_SIZE__RANGE[2]);
+    delimeterSizeEl.value = CURRENT_SETTINGS.DELIMETER_SIZE;
+
+
+    if (CURRENT_SETTINGS.BACKGROUND_GRADIENT_COLORS.length) {
+        CURRENT_SETTINGS.BACKGROUND_GRADIENT_COLORS.forEach((color) => {
+            generateColorPicker(color, document.querySelector('.gradient-colors'), 'gradient');
+        });
+        refreshGradientColorPickerNumbers();
+    }
+
     setBackgroundPanelsVisibility();
+    createImageSelector();
+    createVideoSelector();
+    setImagePreview();
+    setVideoPreview();
+
 
 };

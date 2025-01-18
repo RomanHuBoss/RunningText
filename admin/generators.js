@@ -39,6 +39,21 @@ const refreshGradientColorPickerNumbers = () => {
 const setBackgroundPanelsVisibility = () => {
     VALIDATORS.BACKGROUND_TYPE__AVAILABLE.forEach((available_type) => {
         const panel = document.querySelector(`#${available_type}-settings`);
-        panel.style.display = (available_type === CURRENT_SETTINGS.BACKGROUND_TYPE) ? 'block' : 'none';
+        panel.style.display = (available_type === CURRENT_SETTINGS.BACKGROUND_TYPE) ? 'flex' : 'none';
     });
 };
+
+const createImageSelector = () => {
+    const selector = document.querySelector('#image-selector');
+    selector.innerHTML = VALIDATORS.BACKGROUND_IMAGE__AVAILABLE.map(imgData => {
+        return `<option value="${imgData.path}" ${imgData.path === CURRENT_SETTINGS.BACKGROUND_IMAGE ? "selected" : ""}>${imgData.title}</option>`;
+    }).join('\n');
+};
+
+const createVideoSelector = () => {
+    const selector = document.querySelector('#video-selector');
+    selector.innerHTML = VALIDATORS.BACKGROUND_VIDEO__AVAILABLE.map(videoData => {
+        return `<option value="${videoData.path}" ${videoData.path === CURRENT_SETTINGS.BACKGROUND_VIDEO ? "selected" : ""}>${videoData.title}</option>`;
+    }).join('\n');
+};
+

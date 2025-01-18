@@ -21,7 +21,7 @@
                 <header class="settings-header">Общие настройки</header>
                 <div class="settings-form">
                     <div class="settings-form-group">
-                        <label for="sections-number">Число секций бегущих строк на экране</label>
+                        <label for="sections-number">Число секций бегущей строки на СОИКП</label>
                         <input id="sections-number" type="number"
                                class="auto-connected-handlers"
                                data-storage-property="SECTIONS_NUMBER" data-event="change" data-handler="sectionsNumberChangeHandler"/>
@@ -38,6 +38,13 @@
                         <label for="speed">Скорость бегущей строки (медленнее-быстрее)</label>
                         <input id="speed" type="range"
                                class="auto-connected-handlers" data-storage-property="SPEED" data-event="change" data-handler="speedChangeHandler"/>
+                    </div>
+
+                    <div class="settings-form-group">
+                        <label for="delimeter-size">Число пробелов между сообщениями</label>
+                        <input id="delimeter-size" type="number"
+                               class="auto-connected-handlers"
+                               data-storage-property="DELIMETER_SIZE" data-event="change" data-handler="delimeterSizeChangeHandler"/>
                     </div>
 
                     <div class="background-settings-wrapper">
@@ -80,17 +87,25 @@
                         <div id="image-settings"  class="background-settings-panel">
                             <div class="settings-form-group">
                                 <label for="image-selector">Выберите картинку</label>
-                                <select id="image-selector">
+                                <select id="image-selector" class="auto-connected-handlers" data-storage-property="BACKGROUND_IMAGE" data-event="change" data-handler="backgroundImageChangeHandler">
 
                                 </select>
                             </div>
+
+                            <div class="image-preview">
+
+                            </div>
+
                         </div>
 
                         <div id="video-settings"  class="background-settings-panel">
                             <div class="settings-form-group">
                                 <label for="video-selector">Выберите видео</label>
-                                <select id="video-selector">
+                                <select id="video-selector" class="auto-connected-handlers" data-storage-property="BACKGROUND_VIDEO" data-event="change" data-handler="backgroundVideoChangeHandler">
                                 </select>
+                            </div>
+                            <div class="video-preview">
+
                             </div>
                         </div>
 

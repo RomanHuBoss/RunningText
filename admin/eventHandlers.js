@@ -8,6 +8,7 @@ const sectionsNumberChangeHandler = (e) => {
         CURRENT_SETTINGS.SECTIONS_NUMBER = value;
         setStorageProperty(key, value);
     } else {
+        e.target.value = CURRENT_SETTINGS.SECTIONS_NUMBER;
         console.warn(`Can't send message to storage to update "${key}" with value ${value}. Validation failed!`);
     }
 };
@@ -36,6 +37,7 @@ const speedChangeHandler = (e) => {
         CURRENT_SETTINGS.SPEED = value;
         setStorageProperty(key, value);
     } else {
+        e.target.value = CURRENT_SETTINGS.SPEED;
         console.warn(`Can't send message to storage to update "${key}" with value ${value}. Validation failed!`);
     }
 };
@@ -65,9 +67,25 @@ const backgroundGradientAngleChangeHandler = (e) => {
         CURRENT_SETTINGS.BACKGROUND_GRADIENT_ANGLE = value;
         setStorageProperty(key, value);
     } else {
+        e.target.value = CURRENT_SETTINGS.BACKGROUND_GRADIENT_ANGLE;
         console.warn(`Can't send message to storage to update "${key}" with value ${value}. Validation failed!`);
     }
 };
+
+//обрабатываем изменения числа пробелов между сообщениями
+const delimeterSizeChangeHandler = (e) => {
+    const key = e.target.dataset.storageProperty;
+    const value = e.target.value;
+
+    if (validate(key, value)) {
+        console.log(`Sent message to storage to update "${key}" with value ${value}`);
+        CURRENT_SETTINGS.DELIMETER_SIZE = value;
+        setStorageProperty(key, value);
+    } else {
+        e.target.value = CURRENT_SETTINGS.DELIMETER_SIZE;
+        console.warn(`Can't send message to storage to update "${key}" with value ${value}. Validation failed!`);
+    }
+}
 
 //обрабатываем щелчок на кнопке добавления цвета градиента
 const addGradientColorBtnClickHandler = (e) => {
@@ -101,6 +119,44 @@ const gradientColorsCollectionChangeHandler = (e) => {
     setStorageProperty(proxyElement.dataset.storageProperty, gradientColors);
 };
 
+const backgroundImageChangeHandler = (e) => {
+    const key = e.target.dataset.storageProperty;
+    const value = e.target.value;
+
+    if (validate(key, value)) {
+        console.log(`Sent message to storage to update "${key}" with value ${value}`);
+        CURRENT_SETTINGS.BACKGROUND_IMAGE = value;
+        setStorageProperty(key, value);
+        setImagePreview();
+    } else {
+        console.warn(`Can't send message to storage to update "${key}" with value ${value}. Validation failed!`);
+    }
+};
+
+const backgroundVideoChangeHandler = (e) => {
+    const key = e.target.dataset.storageProperty;
+    const value = e.target.value;
+
+    if (validate(key, value)) {
+        console.log(`Sent message to storage to update "${key}" with value ${value}`);
+        CURRENT_SETTINGS.BACKGROUND_VIDEO = value;
+        setStorageProperty(key, value);
+        setVideoPreview();
+    } else {
+        console.warn(`Can't send message to storage to update "${key}" with value ${value}. Validation failed!`);
+    }
+};
+
+const setImagePreview = () => {
+    document.querySelector(".image-preview").style.backgroundImage = `url(${CURRENT_SETTINGS.BACKGROUND_IMAGE})`;
+};
+
+const setVideoPreview = () => {
+    const videoWrapper = document.querySelector(".video-preview");
+    videoWrapper.innerHTML = `<video loop autoplay muted src="${CURRENT_SETTINGS.BACKGROUND_VIDEO}" type="video/mp4"/>`;
+};
+
+
 //привязка обработчиков к визуальным элементам
 const autoConnectHandlers = () => {
     const elements = getDomElementsAsArray(document, ".auto-connected-handlers");
@@ -132,3 +188,4 @@ const connectHandlerToElement = (element, additionalData = null) => {
         console.warn(`Can't find ${dataHandler} for element`, element);
     }            
 };
+

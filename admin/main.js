@@ -42,8 +42,15 @@ window.addEventListener("message", (event) => {
             stopPreloading();
             const storageData = event.data.payload.data;
             Object.keys(storageData).forEach((key) => {
-                const validationResult = validate(key, storageData[key]);
-                CURRENT_SETTINGS[key] = (storageData[key] && validationResult) ? storageData[key] : DEFAULT_SETTINGS[key];
+                let value = storageData[key];
+                if (key === "BACKGROUND_GRADIENT_COLORS") {
+                    value = value.split(',');
+                    if (value.length) {
+                        value = value.filter(elem => validate("COLOR", elem))
+                    }
+                }
+                const validationResult = validate(key, value);
+                CURRENT_SETTINGS[key] = (value && validationResult) ? value : DEFAULT_SETTINGS[key];
             });
 
     }

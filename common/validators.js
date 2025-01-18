@@ -23,18 +23,18 @@ const VALIDATORS = {
 
     //доступные картинки для фона
     BACKGROUND_IMAGE__AVAILABLE: [
-        {'../assets/background-1.jpg': 'Картинка 1'},
-        {'../assets/background-2.jpg': 'Картинка 2'},
-        {'../assets/background-3.jpg': 'Картинка 3'},
-        {'../assets/background-4.jpg': 'Картинка 4'},
+        {path: '../assets/background-1.jpg', title: 'Картинка 1'},
+        {path: '../assets/background-2.jpg', title: 'Картинка 2'},
+        {path: '../assets/background-3.jpg', title: 'Картинка 3'},
+        {path: '../assets/background-4.jpg', title: 'Картинка 4'},
     ],
 
     //доступные видео для фона
     BACKGROUND_VIDEO__AVAILABLE: [
-        {'../assets/video-1.jpg': 'Видео 1'},
-        {'../assets/video-2.jpg': 'Видео 2'},
-        {'../assets/video-3.jpg': 'Видео 3'},
-        {'../assets/video-4.jpg': 'Видео 4'},
+        {path: '../assets/video-1.mp4', title: 'Видео 1'},
+        {path: '../assets/video-2.mp4', title: 'Видео 2'},
+        {path: '../assets/video-3.mp4', title: 'Видео 3'},
+        {path: '../assets/video-4.mp4', title: 'Видео 4'},
     ],
 
     //интервал допустимых значений числа пробелов между отдельными сообщениями бегущей строки
@@ -57,6 +57,7 @@ const validate = (key, value) => {
     } else if (key === "BACKGROUND_TYPE") {
         return VALIDATORS.BACKGROUND_TYPE__AVAILABLE.includes(value);
     } else if (key === "COLOR") {
+        console.log(key, value);
         const regex = /^#[0-9a-f]{3,6}$/i;
         return regex.test(value);
     } else if (key === "BACKGROUND_GRADIENT_ANGLE") {
@@ -64,9 +65,9 @@ const validate = (key, value) => {
         return value >= VALIDATORS.BACKGROUND_GRADIENT_ANGLE__RANGE[0] &&
             value <= VALIDATORS.BACKGROUND_GRADIENT_ANGLE__RANGE[1];
     } else if (key === "BACKGROUND_IMAGE") {
-        return VALIDATORS.BACKGROUND_IMAGE__AVAILABLE.includes(value);
+        return VALIDATORS.BACKGROUND_IMAGE__AVAILABLE.filter(elem=> elem.path === value).length > 0;
     } else if (key === "BACKGROUND_VIDEO") {
-        return VALIDATORS.BACKGROUND_VIDEO__AVAILABLE.includes(value);
+        return VALIDATORS.BACKGROUND_VIDEO__AVAILABLE.filter(elem=> elem.path === value).length > 0;
     } else if (key === "DELIMETER_SIZE") {
         value = parseInt(value);
         return value >= VALIDATORS.DELIMETER_SIZE__RANGE[0] &&
