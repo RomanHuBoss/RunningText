@@ -28,25 +28,27 @@ const getAllStorageProperties = () => {
 };
 
 const startPreloading = () => {
+    document.body.dataset.loading = 1;
+
     const preloaderWrapper = document.querySelector(".preloader-wrapper");
     preloaderWrapper.classList.remove("hidden");
 
     const panelWrapper = document.querySelector(".panel-wrapper");
     panelWrapper.classList.add("hidden");
 
-    document.body.dataset.loading = 1;
 };
 
 const stopPreloading = () => {
+    document.body.dataset.loading = 0;
+
     const preloaderWrapper = document.querySelector(".preloader-wrapper");
     preloaderWrapper.classList.add("hidden");
 
     const panelWrapper = document.querySelector(".panel-wrapper");
     panelWrapper.classList.remove("hidden");
 
-    document.body.dataset.loading = 0;
 };
 
 const isPreloading = () => {
-    document.body.dataset.loading == 1;
+    return document.body.dataset.loading == 1;
 };

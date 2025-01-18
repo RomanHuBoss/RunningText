@@ -22,17 +22,22 @@
                 <div class="settings-form">
                     <div class="settings-form-group">
                         <label for="sections-number">Число секций бегущих строк на экране</label>
-                        <input id="sections-number" type="number" min="3" max="4" value="3" data-validators="isPositive,isInRange" class="auto-connected-handlers" data-storage-property="SECTIONS_NUMBER" data-event="change" data-handler="sectionsNumberChangeHandler"/>
+                        <input id="sections-number" type="number"
+                               class="auto-connected-handlers"
+                               data-storage-property="SECTIONS_NUMBER" data-event="change" data-handler="sectionsNumberChangeHandler"/>
                     </div>
                     
                     <div class="settings-form-group">
                         <label for="font-size-coeff">Размер шрифта (меньше-больше)</label>
-                        <input id="font-size-coeff" type="range" min="0.1" max="0.9" step="0.01" value="0.25" class="auto-connected-handlers" data-storage-property="FONT_SIZE_COEFF" data-event="change" data-handler="fontSizeCoeffChangeHandler"/>
+                        <input id="font-size-coeff" type="range"
+                               class="auto-connected-handlers"
+                               data-storage-property="FONT_SIZE_COEFF" data-event="change" data-handler="fontSizeCoeffChangeHandler"/>
                     </div>
 
                     <div class="settings-form-group">
                         <label for="speed">Скорость бегущей строки (медленнее-быстрее)</label>
-                        <input id="speed" type="range" min="1" max="100" step="1" value="2" class="auto-connected-handlers" data-storage-property="SPEED" data-event="change" data-handler="speedChangeHandler"/>
+                        <input id="speed" type="range"
+                               class="auto-connected-handlers" data-storage-property="SPEED" data-event="change" data-handler="speedChangeHandler"/>
                     </div>
 
                     <div class="background-settings-wrapper">
@@ -40,17 +45,20 @@
 
                         <div class="group-of-radios">
                             <div class="settings-form-group labeled-radio">
-                                <input id="use-background-gradient" type="radio" value="gradient" name="background-type" class="auto-connected-handlers" data-storage-property="BACKGROUND_TYPE"  data-event="change" data-handler="backgroundTypeChangeHandler"/>
+                                <input id="use-background-gradient" type="radio" value="gradient" name="background-type" class="auto-connected-handlers"
+                                       data-storage-property="BACKGROUND_TYPE"  data-event="change" data-handler="backgroundTypeChangeHandler"/>
                                 <label for="use-background-gradient">Градиент</label>
                             </div>
 
                             <div class="settings-form-group labeled-radio">
-                                <input id="use_background_image" type="radio" value="image" name="background-type" class="auto-connected-handlers" data-storage-property="BACKGROUND_TYPE" data-event="change" data-handler="backgroundTypeChangeHandler"/>
+                                <input id="use_background_image" type="radio" value="image" name="background-type" class="auto-connected-handlers"
+                                       data-storage-property="BACKGROUND_TYPE" data-event="change" data-handler="backgroundTypeChangeHandler"/>
                                 <label for="use_background_image">Картинка</label>
                             </div>
 
                             <div class="settings-form-group labeled-radio">
-                                <input id="use_background_video" type="radio" value="video" name="background-type" class="auto-connected-handlers" data-storage-property="BACKGROUND_TYPE" data-event="change" data-handler="backgroundTypeChangeHandler"/>
+                                <input id="use_background_video" type="radio" value="video" name="background-type" class="auto-connected-handlers"
+                                       data-storage-property="BACKGROUND_TYPE" data-event="change" data-handler="backgroundTypeChangeHandler"/>
                                 <label for="use_background_video">Видео</label>
                             </div>
                         </div>
@@ -58,7 +66,7 @@
                         <div id="gradient-settings" class="background-settings-panel">
                             <div class="settings-form-group">
                                 <label for="background-gradient-angle">Угол поворота градиента (0-360&#176;)</label>
-                                <input id="background-gradient-angle" type="number" min="0" max="360" value="45" class="auto-connected-handlers" data-storage-property="BACKGROUND_GRADIENT_ANGLE" data-event="change" data-handler="backgroundGradientAngleChangeHandler"/>
+                                <input id="background-gradient-angle" type="number" class="auto-connected-handlers" data-storage-property="BACKGROUND_GRADIENT_ANGLE" data-event="change" data-handler="backgroundGradientAngleChangeHandler"/>
                             </div>                                                                
                             <div>
                                 <button id="addGradientColorBtn" class="button auto-connected-handlers" data-event="click" data-handler="addGradientColorBtnClickHandler">Добавить цвет градиента</button>
@@ -70,11 +78,20 @@
                         </div>
 
                         <div id="image-settings"  class="background-settings-panel">
-                            
+                            <div class="settings-form-group">
+                                <label for="image-selector">Выберите картинку</label>
+                                <select id="image-selector">
+
+                                </select>
+                            </div>
                         </div>
 
                         <div id="video-settings"  class="background-settings-panel">
-                            
+                            <div class="settings-form-group">
+                                <label for="video-selector">Выберите видео</label>
+                                <select id="video-selector">
+                                </select>
+                            </div>
                         </div>
 
                     </div>
@@ -93,6 +110,7 @@
 </body>
 
 <script src="../common/constants.js"></script>
+<script src="../common/validators.js"></script>
 <script src="../common/useful.js"></script>
 <script src="./gui_initializers.js"></script>
 <script src="./generators.js"></script>

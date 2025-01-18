@@ -42,13 +42,10 @@ window.addEventListener("message", (event) => {
             stopPreloading();
             const storageData = event.data.payload.data;
             Object.keys(storageData).forEach((key) => {
-                CURRENT_SETTINGS[key] = storageData[key] || DEFAULT_SETTINGS[key];
+                const validationResult = validate(key, storageData[key]);
+                CURRENT_SETTINGS[key] = (storageData[key] && validationResult) ? storageData[key] : DEFAULT_SETTINGS[key];
             });
 
-            console.log("Current settings", CURRENT_SETTINGS);
-            for (const key in Object.keys(CURRENT_SETTINGS)) {
-
-            }
     }
 });
 

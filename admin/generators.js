@@ -16,7 +16,7 @@ const generateColorPicker = (color, parentNode, kind = 'gradient') => {
 
     parentNode.appendChild(wrapper);
 
-    if (kind == 'gradient') {
+    if (kind === 'gradient') {
         wrapper.classList.add("gradientColorPickerWrapper");
         wrapper.innerHTML += `<div class="color-picker-remover" title="Удалить цвет" data-event="click" data-handler="removeGradientColorPickerBtnClickHandler">X</div>`;
         const colorPickerRemover = wrapper.querySelector(".color-picker-remover");
@@ -33,4 +33,12 @@ const refreshGradientColorPickerNumbers = () => {
     getDomElementsAsArray(document, ".gradientColorPickerWrapper").forEach((element, index) => {
         element.dataset.serialNumber = index + 1;
     });
-}
+};
+
+//устанавливает видимость панелей выбора фона
+const setBackgroundPanelsVisibility = () => {
+    VALIDATORS.BACKGROUND_TYPE__AVAILABLE.forEach((available_type) => {
+        const panel = document.querySelector(`#${available_type}-settings`);
+        panel.style.display = (available_type === CURRENT_SETTINGS.BACKGROUND_TYPE) ? 'block' : 'none';
+    });
+};

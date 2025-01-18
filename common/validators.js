@@ -1,27 +1,79 @@
-const validators = {
-    isPositive: (elem) => elem.value > 0,
-    isInRange: (elem) => elem.value >= elem.min && elem.value <= elem.max,
-    isMore: (elem) => elem.value > elem.min,
-    isLess: (elem) => elem.value < elem.max,
-    isMoreOrEqual: (elem) => elem.value >= elem.min,
-    isLessOrEqual: (elem) => elem.value <= elem.min,
-    isInArray: (elem) => elem.dataset.acceptableValues.includes(elem.value),
-    isEmpty: (elem) => !elem.value,
+const VALIDATORS = {
+    //интервал допустимых значений числа секций (и шаг между ними)
+    SECTIONS_NUMBER__RANGE: [3, 4, 1],
+
+    //интервал допустимых значений размера шрифта (и шаг между ними)
+    FONT_SIZE_COEFF__RANGE: [0.1, 0.9, 0.1],
+
+    //интервал допустимых значений скорости (и шаг между ними)
+    SPEED__RANGE: [1, 100, 1],
+
+    /*
+    допустимые типы фона
+    - "gradient" - градиент цвета
+    - "image" - картинка
+    - "video" - видео
+     */
+    BACKGROUND_TYPE__AVAILABLE: [
+        "gradient", "image", "video"
+    ],
+
+    //интервал допустимых значений угла наклона градиента
+    BACKGROUND_GRADIENT_ANGLE__RANGE: [0, 360, 1],
+
+    //доступные картинки для фона
+    BACKGROUND_IMAGE__AVAILABLE: [
+        {'../assets/background-1.jpg': 'Картинка 1'},
+        {'../assets/background-2.jpg': 'Картинка 2'},
+        {'../assets/background-3.jpg': 'Картинка 3'},
+        {'../assets/background-4.jpg': 'Картинка 4'},
+    ],
+
+    //доступные видео для фона
+    BACKGROUND_VIDEO__AVAILABLE: [
+        {'../assets/video-1.jpg': 'Видео 1'},
+        {'../assets/video-2.jpg': 'Видео 2'},
+        {'../assets/video-3.jpg': 'Видео 3'},
+        {'../assets/video-4.jpg': 'Видео 4'},
+    ],
+
+    //интервал допустимых значений числа пробелов между отдельными сообщениями бегущей строки
+    DELIMETER_SIZE__RANGE: [1, 30, 1],
 };
 
-const registerValidator = (htmlElement, validator) => {
-    if (!htmlElement.validators) {
-        htmlElement.validators = [];
+const validate = (key, value) => {
+    if (key === "SECTIONS_NUMBER") {
+        value = parseInt(value);
+        return value >= VALIDATORS.SECTIONS_NUMBER__RANGE[0] &&
+            value <= VALIDATORS.SECTIONS_NUMBER__RANGE[1];
+    } else if (key === "FONT_SIZE_COEFF") {
+        value = parseFloat(value);
+        return value >= VALIDATORS.FONT_SIZE_COEFF__RANGE[0] &&
+            value <= VALIDATORS.FONT_SIZE_COEFF__RANGE[1];
+    } else if (key === "SPEED") {
+        value = parseFloat(value);
+        return value >= VALIDATORS.SPEED__RANGE[0] &&
+            value <= VALIDATORS.SPEED__RANGE[1];
+    } else if (key === "BACKGROUND_TYPE") {
+        return VALIDATORS.BACKGROUND_TYPE__AVAILABLE.includes(value);
+    } else if (key === "COLOR") {
+        const regex = /^#[0-9a-f]{3,6}$/i;
+        return regex.test(value);
+    } else if (key === "BACKGROUND_GRADIENT_ANGLE") {
+        value = parseInt(value);
+        return value >= VALIDATORS.BACKGROUND_GRADIENT_ANGLE__RANGE[0] &&
+            value <= VALIDATORS.BACKGROUND_GRADIENT_ANGLE__RANGE[1];
+    } else if (key === "BACKGROUND_IMAGE") {
+        return VALIDATORS.BACKGROUND_IMAGE__AVAILABLE.includes(value);
+    } else if (key === "BACKGROUND_VIDEO") {
+        return VALIDATORS.BACKGROUND_VIDEO__AVAILABLE.includes(value);
+    } else if (key === "DELIMETER_SIZE") {
+        value = parseInt(value);
+        return value >= VALIDATORS.DELIMETER_SIZE__RANGE[0] &&
+            value <= VALIDATORS.DELIMETER_SIZE__RANGE[1];
+    } else if (key === "MESSAGE") {
+        return value.length() > 0;
     }
-    htmlElement.validators.push(validator);
-}
 
-const validate = (htmlElement) => {
-    if (!htmlElement.validators) {
-        return;
-    }
-
-    htmlElement.validators.some((validator) => {
-        return !validator();
-    });
+    return true;
 };

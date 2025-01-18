@@ -9,7 +9,7 @@ const DEFAULT_SETTINGS = {
     FONT_SIZE_COEFF: 0.35,
 
     // скорость бегущей строки
-    SPEED: 1,
+    SPEED: 20,
 
     /*
     Тип фона для бегущей строки по умолчанию
@@ -47,51 +47,6 @@ const DEFAULT_SETTINGS = {
 
     //цвет умолчательного сообщения
     ALTERNATIVE_MESSAGE_COLOR: "#ffffff",
-
-    //валидаторы
-    VALIDATORS: {
-        //интервал допустимых значений числа секций (и шаг между ними)
-        SECTIONS_NUMBER__RANGE: [3, 4, 1],
-
-        //интервал допустимых значений размера шрифта (и шаг между ними)
-        FONT_SIZE_COEFF__RANGE: [0, 0.35, 0.1],
-
-        //интервал допустимых значений скорости (и шаг между ними)
-        SPEED__RANGE: [1, 100, 1],
-
-        /*
-        допустимые типы фона
-        - "gradient" - градиент цвета
-        - "image" - картинка
-        - "video" - видео
-         */
-        BACKGROUND_TYPE__AVAILABLE: [
-            "gradient", "image", "video"
-        ],
-
-        //интервал допустимых значений угла наклона градиента
-        BACKGROUND_GRADIENT_ANGLE__RANGE: [0, 360, 1],
-
-        //доступные картинки для фона
-        BACKGROUND_IMAGE__AVAILABLE: [
-            {'../assets/background-1.jpg': 'Картинка 1'},
-            {'../assets/background-2.jpg': 'Картинка 2'},
-            {'../assets/background-3.jpg': 'Картинка 3'},
-            {'../assets/background-4.jpg': 'Картинка 4'},
-        ],
-
-        //доступные видео для фона
-        BACKGROUND_VIDEO__AVAILABLE: [
-            {'../assets/video-1.jpg': 'Видео 1'},
-            {'../assets/video-2.jpg': 'Видео 2'},
-            {'../assets/video-3.jpg': 'Видео 3'},
-            {'../assets/video-4.jpg': 'Видео 4'},
-        ],
-
-        //интервал допустимых значений числа пробелов между отдельными сообщениями бегущей строки
-        DELIMETER_SIZE__RANGE: [1, 30, 1],
-
-    },
 
     //набор сообщений
     MESSAGES: [

@@ -1,31 +1,72 @@
 //обрабатываем изменение числа секций
 const sectionsNumberChangeHandler = (e) => {
-    console.log(`Send message to storage to update "${e.target.dataset.storageProperty}" with value ${e.target.value}`);
-    setStorageProperty(e.target.dataset.storageProperty, e.target.value);
+    const key = e.target.dataset.storageProperty;
+    const value = e.target.value;
+
+    if (validate(key, value)) {
+        console.log(`Sent message to storage to update "${key}" with value ${value}`);
+        CURRENT_SETTINGS.SECTIONS_NUMBER = value;
+        setStorageProperty(key, value);
+    } else {
+        console.warn(`Can't send message to storage to update "${key}" with value ${value}. Validation failed!`);
+    }
 };
 
 //обрабатываем изменение размера шрифта
 const fontSizeCoeffChangeHandler = (e) => {
-    console.log(`Send message to storage to update "${e.target.dataset.storageProperty}" with value ${e.target.value}`);
-    setStorageProperty(e.target.dataset.storageProperty, e.target.value);
+    const key = e.target.dataset.storageProperty;
+    const value = e.target.value;
+
+    if (validate(key, value)) {
+        console.log(`Sent message to storage to update "${key}" with value ${value}`);
+        CURRENT_SETTINGS.FONT_SIZE_COEFF = value;
+        setStorageProperty(key, value);
+    } else {
+        console.warn(`Can't send message to storage to update "${key}" with value ${value}. Validation failed!`);
+    }
 };
 
 //обрабатываем изменение скорости
 const speedChangeHandler = (e) => {
-    console.log(`Send message to storage to update "${e.target.dataset.storageProperty}" with value ${e.target.value}`);
-    setStorageProperty(e.target.dataset.storageProperty, e.target.value);
+    const key = e.target.dataset.storageProperty;
+    const value = e.target.value;
+
+    if (validate(key, value)) {
+        console.log(`Sent message to storage to update "${key}" with value ${value}`);
+        CURRENT_SETTINGS.SPEED = value;
+        setStorageProperty(key, value);
+    } else {
+        console.warn(`Can't send message to storage to update "${key}" with value ${value}. Validation failed!`);
+    }
 };
 
 //обрабатываем изменение типа фона бегущей строки (картинка, видео, градиент)
 const backgroundTypeChangeHandler = (e) => {
-    console.log(`Send message to storage to update "${e.target.dataset.storageProperty}" with value ${e.target.value}`);
-    setStorageProperty(e.target.dataset.storageProperty, e.target.value);
+    const key = e.target.dataset.storageProperty;
+    const value = e.target.value;
+
+    if (validate(key, value)) {
+        console.log(`Sent message to storage to update "${key}" with value ${value}`);
+        CURRENT_SETTINGS.BACKGROUND_TYPE = value;
+        setStorageProperty(key, value);
+        setBackgroundPanelsVisibility();
+    } else {
+        console.warn(`Can't send message to storage to update "${key}" with value ${value}. Validation failed!`);
+    }
 };
 
 //обрабатываем изменения угла градиента
 const backgroundGradientAngleChangeHandler = (e) => {
-    console.log(`Send message to storage to update "${e.target.dataset.storageProperty}" with value ${e.target.value}`);
-    setStorageProperty(e.target.dataset.storageProperty, e.target.value);
+    const key = e.target.dataset.storageProperty;
+    const value = e.target.value;
+
+    if (validate(key, value)) {
+        console.log(`Sent message to storage to update "${key}" with value ${value}`);
+        CURRENT_SETTINGS.BACKGROUND_GRADIENT_ANGLE = value;
+        setStorageProperty(key, value);
+    } else {
+        console.warn(`Can't send message to storage to update "${key}" with value ${value}. Validation failed!`);
+    }
 };
 
 //обрабатываем щелчок на кнопке добавления цвета градиента
