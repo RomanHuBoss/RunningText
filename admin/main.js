@@ -26,6 +26,7 @@ window.addEventListener("DOMContentLoaded", (e) =>  {
         if (isPreloading()) {
             stopPreloading();
         }
+        initializeGUIComponents();
         autoConnectHandlers();
     });
 
