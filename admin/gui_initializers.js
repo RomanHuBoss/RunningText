@@ -1,6 +1,6 @@
 const initializeGUIComponents = () => {
     const storagePropElements = document.querySelectorAll("[data-storage-property]");
-    console.log(storagePropElements);
+
 };
 
 /*

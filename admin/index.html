@@ -22,7 +22,7 @@
                 <div class="settings-form">
                     <div class="settings-form-group">
                         <label for="sections-number">Число секций бегущих строк на экране</label>
-                        <input id="sections-number" type="number" min="3" max="4" value="3" class="auto-connected-handlers" data-storage-property="SECTIONS_NUMBER" data-event="change" data-handler="sectionsNumberChangeHandler"/>
+                        <input id="sections-number" type="number" min="3" max="4" value="3" data-validators="isPositive,isInRange" class="auto-connected-handlers" data-storage-property="SECTIONS_NUMBER" data-event="change" data-handler="sectionsNumberChangeHandler"/>
                     </div>
                     
                     <div class="settings-form-group">
