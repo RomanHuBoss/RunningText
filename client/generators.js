@@ -1,7 +1,7 @@
 //адаптация шрифта к изменению размера секции бегущей строки
 const generateTextSize = () => {
     const body = document.querySelector("body");
-    const fontSize = (body.clientHeight / SETTINGS.SECTIONS_NUMBER) * SETTINGS.FONT_SIZE_COEFF;
+    const fontSize = (body.clientHeight / CURRENT_SETTINGS.SECTIONS_NUMBER) * CURRENT_SETTINGS.FONT_SIZE_COEFF;
     const textWrappers = Array.prototype.slice.call(document.querySelectorAll(".text-wrapper"), 0);
 
     textWrappers.forEach((textWrapper) => {
@@ -22,11 +22,11 @@ const generateSectionsBackground = () => {
             section.removeChild(videoWrapper);
         }
 
-        if (SETTINGS.USE_BACKGROUND_GRADIENT) {
-            section.style.background = `linear-gradient(${SETTINGS.BACKGROUND_GRADIENT_ANGLE}deg, ${SETTINGS.BACKGROUND_GRADIENT_COLORS.join(', ')})`;
-        } else if (SETTINGS.USE_BACKGROUND_IMAGE) {
+        if (CURRENT_SETTINGS.USE_BACKGROUND_GRADIENT) {
+            section.style.background = `linear-gradient(${CURRENT_SETTINGS.BACKGROUND_GRADIENT_ANGLE}deg, ${CURRENT_SETTINGS.BACKGROUND_GRADIENT_COLORS.join(', ')})`;
+        } else if (CURRENT_SETTINGS.USE_BACKGROUND_IMAGE) {
             section.classList.add("with-image");
-        } else if (SETTINGS.USE_BACKGROUND_VIDEO) {
+        } else if (CURRENT_SETTINGS.USE_BACKGROUND_VIDEO) {
             section.appendChild(generateVideoTags());
         }
     });
@@ -35,10 +35,10 @@ const generateSectionsBackground = () => {
 //генерация секций с бегущими строками
 const generateSections = () => {
     const body = document.querySelector("body");
-    const sections = Array.prototype.slice.call(document.querySelectorAll("section"), 0);
+    const sections = getDomElementsAsArray(document, "section");
     sections.forEach(section => section.parentNode.removeChild(section));
 
-    for (let i = 0; i < SETTINGS.SECTIONS_NUMBER; i++) {
+    for (let i = 0; i < CURRENT_SETTINGS.SECTIONS_NUMBER; i++) {
         const section = document.createElement("section");
         section.classList.add("section");
         body.appendChild(section);
@@ -53,10 +53,10 @@ const generateSections = () => {
 
 //получение текста для секции (либо статический, если нет сообщений, либо склеенные сообщения)
 const getTextPresented = () => {
-    let text = SETTINGS.DEFAULT_MESSAGE;
+    let text = CURRENT_SETTINGS.ALTERNATIVE_MESSAGE;
     
-    if (SETTINGS.MESSAGES.length) {
-        text = SETTINGS.MESSAGES.join('&nbsp;'.repeat(SETTINGS.DELIMETER_SIZE));
+    if (CURRENT_SETTINGS.MESSAGES.length) {
+        text = CURRENT_SETTINGS.MESSAGES.join('&nbsp;'.repeat(CURRENT_SETTINGS.DELIMETER_SIZE));
     }
     return text;
 };
@@ -80,8 +80,8 @@ const generateTextWrapper = () => {
 
 //запускает/перезапускает анимацию (изменилась скорость и т.п.)
 const restartAnimation = () => {
-    if (SETTINGS.MESSAGES.length || SETTINGS.DEFAULT_MESSAGE_ANIMATION) {
-        const textWrappers = Array.prototype.slice.call(document.querySelectorAll(".text-wrapper"), 0);
+    if (CURRENT_SETTINGS.MESSAGES.length || CURRENT_SETTINGS.ALTERNATIVE_MESSAGE.length) {
+        const textWrappers = getDomElementsAsArray(document, ".text-wrapper");
 
         textWrappers.forEach((textWrapper) => {
             textWrapper.classList.add('with-animation');
@@ -91,7 +91,7 @@ const restartAnimation = () => {
         const wayInPixels = window.innerWidth + textWrappers[0].offsetWidth;
 
         //скорость (пиксели в секунду)
-        const speed = 5 + SETTINGS.SPEED * Math.pow(SETTINGS.SPEED, 1/Math.E);
+        const speed = 5 + CURRENT_SETTINGS.SPEED * Math.pow(CURRENT_SETTINGS.SPEED, 1/Math.E);
 
         const time = wayInPixels / speed;
 
@@ -100,8 +100,6 @@ const restartAnimation = () => {
         });
         
         generateAnimation();
-
-        //console.log(`way in pixels=${wayInPixels}, window.innerWidth=${window.innerWidth}, elementWidth=${textWrappers[0].offsetWidth}, time=${time}, speed=${speed}, rawText=${getRawText().length}`);
 
     } else {
         textWrapper.classList.remove('with-animation');
@@ -139,7 +137,7 @@ const generateAnimation = () => {
 const generateVideoTags = () => {
     const tmp = `
         <video loop autoplay muted>
-            <source type="video/mp4" src="${SETTINGS.BACKGROUND_VIDEO}"/>
+            <source type="video/mp4" src="${CURRENT_SETTINGS.BACKGROUND_VIDEO}"/>
         </video>
     `;
     const div = document.createElement("div");

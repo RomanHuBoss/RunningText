@@ -1,3 +1,6 @@
+//признак загрузки первичных данных из хранилища
+let IS_INITIAL_STORAGE_LOADING = false;
+
 //ищет DOM-элементы по селектору и возвращает в виде классического JS-массива
 const getDomElementsAsArray = (parentElement, selector) => {
     return Array.prototype.slice.call(parentElement.querySelectorAll(selector), 0);
@@ -28,8 +31,6 @@ const getAllStorageProperties = () => {
 };
 
 const startPreloading = () => {
-    document.body.dataset.loading = 1;
-
     const preloaderWrapper = document.querySelector(".preloader-wrapper");
     preloaderWrapper.classList.remove("hidden");
 
@@ -39,8 +40,6 @@ const startPreloading = () => {
 };
 
 const stopPreloading = () => {
-    document.body.dataset.loading = 0;
-
     const preloaderWrapper = document.querySelector(".preloader-wrapper");
     preloaderWrapper.classList.add("hidden");
 
@@ -52,3 +51,31 @@ const stopPreloading = () => {
 const isPreloading = () => {
     return document.body.dataset.loading == 1;
 };
+
+const loadInitialSettingsFromStorage = (callbacksBeforeInit = [], callbacksAfterInit = []) => {
+    IS_INITIAL_STORAGE_LOADING = true;
+
+    let interval = null;
+    new Promise((resolve, reject) => {
+        callbacksBeforeInit.forEach((callback) => callback());
+        getAllStorageProperties();
+
+        const startTime = Date.now();
+
+        interval = setInterval(() => {
+            if (!IS_INITIAL_STORAGE_LOADING) {
+                resolve();
+            }
+            if ((Date.now() - startTime) / 1000 > DEFAULT_SETTINGS.LOADING_TIMEOUT) {
+                reject();
+            }
+        }, 50);
+    }).then(() => {
+        console.log("Settings successfully initialized from localsorage");
+    }).catch(() => {
+        console.log("Can't initialize settings from localsorage");
+    }).finally(() => {
+        clearInterval(interval);
+        callbacksAfterInit.forEach((callback) => callback());
+    });
+}
