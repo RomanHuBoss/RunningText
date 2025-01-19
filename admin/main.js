@@ -1,7 +1,7 @@
 let CURRENT_SETTINGS = JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
 
 //включаемся по факту загрузки DOM-модели
-window.addEventListener("DOMContentLoaded", (e) =>  {
+window.addEventListener("load", (e) =>  {
     startPreloading();
     let interval = null;
 
@@ -43,7 +43,7 @@ window.addEventListener("message", (event) => {
             const storageData = event.data.payload.data;
             Object.keys(storageData).forEach((key) => {
                 let value = storageData[key];
-                if (key === "BACKGROUND_GRADIENT_COLORS") {
+                if (value && key === "BACKGROUND_GRADIENT_COLORS") {
                     value = value.split(',');
                     if (value.length) {
                         value = value.filter(elem => validate("COLOR", elem))

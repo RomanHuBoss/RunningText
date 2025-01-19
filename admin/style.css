@@ -110,14 +110,18 @@ body {
     margin-top: 0.3rem;
 }
 
-.settings-form input[type="color"] {
-    margin-top: 0;
+.settings-form input[type="color"], .settings-form input[type="number"], .settings-form select, .settings-form input[type="text"] {
+    height: 36px;
+    font-size: 18px;
+    border: 2px solid #888;
+    padding: 1px;
 }
 
-.settings-form input[type="number"], .settings-form select, .settings-form input[type="text"] {
-    font-size: 1rem;
-    border: 2px solid #888;
-    padding: 0.3rem;
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+    border: none;
 }
 
 .settings-form input[type="number"]:focus, .settings-form input[type="text"]:focus  {

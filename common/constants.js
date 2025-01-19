@@ -1,6 +1,6 @@
 const DEFAULT_SETTINGS = {
     //ограничение времени загрузки информации из хранилища (в секундах)
-    LOADING_TIMEOUT: 10,
+    LOADING_TIMEOUT: 3,
 
     //+число секций с бегущей строкой на СОИКП
     SECTIONS_NUMBER: 3,
