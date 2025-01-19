@@ -1,4 +1,4 @@
-window.addEventListener("DOMContentLoaded",  (e) =>  {
+window.addEventListener("load",  (e) =>  {
     const proxyElem = document.querySelector("#proxy");
     let payload = null;
 
@@ -8,6 +8,18 @@ window.addEventListener("DOMContentLoaded",  (e) =>  {
             payload: payload,
         }, "*");
         payload = null;
+    });
+
+    window.addEventListener("storage", (e) => {
+        window.top.postMessage({
+            source: 'storage-communicator',
+            payload: {
+                operation: "set",
+                key: e.key,
+                oldValue: e.oldValue,
+                newValue: e.newValue,
+            }
+        }, "*");
     });
 
     window.addEventListener("message", (event) => {
@@ -32,6 +44,16 @@ window.addEventListener("DOMContentLoaded",  (e) =>  {
                 oldValue: oldValue,
                 newValue: value,
             };
+
+            const storageEvent = new StorageEvent('storage', {
+                key: key,
+                oldValue: oldValue,
+                newValue: value,
+                url: window.location.href,
+                storageArea: localStorage
+            });
+            window.dispatchEvent(storageEvent);
+
         } else if (operation === "get") {
             payload = {
                 operation: "get",
@@ -55,3 +77,5 @@ window.addEventListener("DOMContentLoaded",  (e) =>  {
         }
     });
 });
+
+

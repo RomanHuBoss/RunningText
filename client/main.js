@@ -30,10 +30,10 @@ window.addEventListener("message", (event) => {
                 const validationResult = validate(key, value);
                 CURRENT_SETTINGS[key] = (value && validationResult) ? value : DEFAULT_SETTINGS[key];
             });
-        } else if (event.data.payload.operation === "get") {
-            const key = event.data.hasOwnProperty('eKey') ? event.data.key : null;
-            let oldValue = event.data.hasOwnProperty('oldValue') ? event.data.oldValue : null;
-            let newValue = event.data.hasOwnProperty('newValue') ? event.data.newValue : null;
+        } else if (event.data.payload.operation === "set") {
+            const key = event.data.payload.hasOwnProperty('key') ? event.data.payload.key : null;
+            let oldValue = event.data.payload.hasOwnProperty('oldValue') ? event.data.payload.oldValue : null;
+            let newValue = event.data.payload.hasOwnProperty('newValue') ? event.data.payload.newValue : null;
 
             if (newValue && key === "BACKGROUND_GRADIENT_COLORS") {
                 newValue = newValue.split(',');

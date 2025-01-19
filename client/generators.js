@@ -22,11 +22,11 @@ const generateSectionsBackground = () => {
             section.removeChild(videoWrapper);
         }
 
-        if (CURRENT_SETTINGS.USE_BACKGROUND_GRADIENT) {
+        if (CURRENT_SETTINGS.BACKGROUND_TYPE == "gradient") {
             section.style.background = `linear-gradient(${CURRENT_SETTINGS.BACKGROUND_GRADIENT_ANGLE}deg, ${CURRENT_SETTINGS.BACKGROUND_GRADIENT_COLORS.join(', ')})`;
-        } else if (CURRENT_SETTINGS.USE_BACKGROUND_IMAGE) {
+        } else if (CURRENT_SETTINGS.BACKGROUND_TYPE == "image") {
             section.classList.add("with-image");
-        } else if (CURRENT_SETTINGS.USE_BACKGROUND_VIDEO) {
+        } else if (CURRENT_SETTINGS.BACKGROUND_TYPE == "video") {
             section.appendChild(generateVideoTags());
         }
     });
