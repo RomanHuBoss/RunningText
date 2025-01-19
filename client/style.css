@@ -32,7 +32,7 @@ body {
 }
 
 .section.with-image {
-    background-image: url(../assets/background-1.jpg);
+    background-size: cover;
 }
 
 .text-wrapper {

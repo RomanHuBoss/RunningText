@@ -29,6 +29,22 @@ const handleSetBackgroundType = (oldValue, newValue) => {
     generateSectionsBackground();
 };
 
+const handleSetBackgroundVideo = (oldValue, newValue) => {
+    generateSectionsBackground();
+};
+
+const handleSetBackgroundImage = (oldValue, newValue) => {
+    generateSectionsBackground();
+};
+
+const handleSetAlternativeMessage = (oldValue, newValue) => {
+    generateSections();
+};
+
+const handleSetAlternativeMessageColor = (oldValue, newValue) => {
+    generateSections();
+};
+
 const initEvents = () => {
     Object.keys(CURRENT_SETTINGS).forEach((key) => {
         try {

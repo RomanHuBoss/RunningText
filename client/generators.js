@@ -26,6 +26,7 @@ const generateSectionsBackground = () => {
             section.style.background = `linear-gradient(${CURRENT_SETTINGS.BACKGROUND_GRADIENT_ANGLE}deg, ${CURRENT_SETTINGS.BACKGROUND_GRADIENT_COLORS.join(', ')})`;
         } else if (CURRENT_SETTINGS.BACKGROUND_TYPE == "image") {
             section.classList.add("with-image");
+            section.style.backgroundImage = `url(${CURRENT_SETTINGS.BACKGROUND_IMAGE})`;
         } else if (CURRENT_SETTINGS.BACKGROUND_TYPE == "video") {
             section.appendChild(generateVideoTags());
         }
@@ -53,7 +54,7 @@ const generateSections = () => {
 
 //получение текста для секции (либо статический, если нет сообщений, либо склеенные сообщения)
 const getTextPresented = () => {
-    let text = CURRENT_SETTINGS.ALTERNATIVE_MESSAGE;
+    let text = `<span style="color: ${CURRENT_SETTINGS.ALTERNATIVE_MESSAGE_COLOR}">${CURRENT_SETTINGS.ALTERNATIVE_MESSAGE}</span>`;
     
     if (CURRENT_SETTINGS.MESSAGES.length) {
         text = CURRENT_SETTINGS.MESSAGES.join('&nbsp;'.repeat(CURRENT_SETTINGS.DELIMETER_SIZE));
