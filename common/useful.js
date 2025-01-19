@@ -78,4 +78,37 @@ const loadInitialSettingsFromStorage = (callbacksBeforeInit = [], callbacksAfter
         clearInterval(interval);
         callbacksAfterInit.forEach((callback) => callback());
     });
+};
+
+//привязка обработчиков к созданному на лету DOM-элементу
+//element - DOM-element
+//dataEvent - тип события (String), например, "clik"
+//dataHandler - название обработчика (String), например, "speedChangeHandler"
+//additionalData - дополнительные параметры (что угодно)
+const connectHandlerToElement = (element, additionalData = null) => {
+    const dataEvent = element.dataset.event || null;
+    const dataHandler = element.dataset.handler || null;
+
+    if (!dataEvent) {
+        throw Error(`Can't find data-event attribute for element`, element)
+    } else if (!dataHandler) {
+        throw Error(`Can't find data-handler attribute for element`, element)
+    }
+
+    try {
+        const fn = eval(`${dataHandler}`);
+        element.addEventListener(dataEvent, (e) => fn(e, additionalData));
+        console.log(`Handler "${dataHandler}" connected for ${dataEvent} of element`, element)
+    } catch (error) {
+        console.warn(`Can't find ${dataHandler} for element`, element);
+    }
+};
+
+const convertToBeInsertedInMethodName= (txt) => {
+    txt = txt.toLowerCase();
+    txt = txt.replace(" ", "");
+    txt = txt.split("_");
+    txt = txt.map(elem => elem.charAt(0).toUpperCase() + elem.slice(1));
+    txt = txt.join("");
+    return txt;
 }
