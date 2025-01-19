@@ -114,13 +114,13 @@ body {
     margin-top: 0;
 }
 
-.settings-form input[type="number"], .settings-form select {
+.settings-form input[type="number"], .settings-form select, .settings-form input[type="text"] {
     font-size: 1rem;
     border: 2px solid #888;
     padding: 0.3rem;
 }
 
-.settings-form input[type="number"]:focus {
+.settings-form input[type="number"]:focus, .settings-form input[type="text"]:focus  {
     outline: none;
 }
 
@@ -286,3 +286,21 @@ video {
     background-size: cover;
 }
 
+.alternative-message-elements {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 0.3rem;
+}
+
+.alternative-message-elements .settings-form-group:nth-child(1) {
+    width: calc(100% - 100px);
+}
+
+.alternative-message-elements .settings-form-group:nth-child(2) {
+    width: 100px;
+}
+
+.alternative-message-elements input[type="color"] {
+    margin-top: 0.3rem;
+}

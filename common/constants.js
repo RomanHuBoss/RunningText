@@ -42,11 +42,10 @@ const DEFAULT_SETTINGS = {
     //сообщение по умолчанию (при отсутствии иной информации)
     ALTERNATIVE_MESSAGE: "Добро пожаловать на борт!",
 
-    //анимировать ли сообщение по умолчанию или же оставлять статичным
-    ALTERNATIVE_MESSAGE_ANIMATION: true,
-
-    //цвет умолчательного сообщения
     ALTERNATIVE_MESSAGE_COLOR: "#ffffff",
+
+    //цвет любого сообщения, назначаемый по умолчанию
+    DEFAULT_MESSAGE_COLOR: "#ffffff",
 
     //набор сообщений
     MESSAGES: [

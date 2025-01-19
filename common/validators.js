@@ -57,7 +57,7 @@ const validate = (key, value) => {
     } else if (key === "BACKGROUND_TYPE") {
         return VALIDATORS.BACKGROUND_TYPE__AVAILABLE.includes(value);
     } else if (key === "COLOR") {
-        console.log(key, value);
+        //console.log(key, value);
         const regex = /^#[0-9a-f]{3,6}$/i;
         return regex.test(value);
     } else if (key === "BACKGROUND_GRADIENT_ANGLE") {

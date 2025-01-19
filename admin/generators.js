@@ -4,7 +4,8 @@
    - div с классом .gradient-colors для выбора цвета градиента
    - иное...
 2) kind - тип элемента выбора цвета
-    - gradient - для градиента, 
+    - gradient - для градиента,
+    - alternativeMessage - для альтернативного сообщения
     - message - для отдельного сообщения в бегущей строке
 */
 const generateColorPicker = (color, parentNode, kind = 'gradient') => {

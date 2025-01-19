@@ -34,13 +34,15 @@ const initializeGUIComponents = () => {
     delimeterSizeEl.setAttribute("step", VALIDATORS.DELIMETER_SIZE__RANGE[2]);
     delimeterSizeEl.value = CURRENT_SETTINGS.DELIMETER_SIZE;
 
-
     if (CURRENT_SETTINGS.BACKGROUND_GRADIENT_COLORS.length) {
         CURRENT_SETTINGS.BACKGROUND_GRADIENT_COLORS.forEach((color) => {
             generateColorPicker(color, document.querySelector('.gradient-colors'), 'gradient');
         });
         refreshGradientColorPickerNumbers();
     }
+
+    const alternativeMessageColorEl = document.querySelector("[data-storage-property='ALTERNATIVE_MESSAGE_COLOR']");
+    alternativeMessageColorEl.value = CURRENT_SETTINGS.ALTERNATIVE_MESSAGE_COLOR;
 
     setBackgroundPanelsVisibility();
     createImageSelector();

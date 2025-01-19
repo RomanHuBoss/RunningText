@@ -27,6 +27,35 @@ const fontSizeCoeffChangeHandler = (e) => {
     }
 };
 
+//обработка изменений сообщения по умолчанию
+const alternativeMessageChangeHandler = (e) => {
+    const key = e.target.dataset.storageProperty;
+    const value = e.target.value;
+
+    if (validate(key, value)) {
+        console.log(`Sent message to storage to update "${key}" with value ${value}`);
+        CURRENT_SETTINGS.ALTERNATIVE_MESSAGE = value;
+        setStorageProperty(key, value);
+    } else {
+        e.target.value = CURRENT_SETTINGS.ALTERNATIVE_MESSAGE;
+        console.warn(`Can't send message to storage to update "${key}" with value ${value}. Validation failed!`);
+    }
+};
+
+const alternativeMessageColorChangeHandler = (e) => {
+    const key = e.target.dataset.storageProperty;
+    const value = e.target.value;
+
+    if (validate("COLOR", value)) {
+        console.log(`Sent message to storage to update "${key}" with value ${value}`);
+        CURRENT_SETTINGS.ALTERNATIVE_MESSAGE_COLOR = value;
+        setStorageProperty(key, value);
+    } else {
+        e.target.value = CURRENT_SETTINGS.ALTERNATIVE_MESSAGE_COLOR;
+        console.warn(`Can't send message to storage to update "${key}" with value ${value}. Validation failed!`);
+    }
+}
+
 //обрабатываем изменение скорости
 const speedChangeHandler = (e) => {
     const key = e.target.dataset.storageProperty;

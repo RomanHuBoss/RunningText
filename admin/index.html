@@ -116,6 +116,20 @@
 
             <section class="settings-wrapper">
                 <header class="settings-header">Настройка сообщений</header>
+                <div class="settings-form">
+                    <div class="alternative-message-elements">
+                        <div class="settings-form-group">
+                            <label for="alternative-message">Сообщение по умолчанию</label>
+                            <input id="alternative-message" type="text"
+                                   class="auto-connected-handlers"
+                                   data-storage-property="ALTERNATIVE_MESSAGE" data-event="change" data-handler="alternativeMessageChangeHandler"/>
+                        </div>
+                        <div class="settings-form-group">
+                            <label for="alternative-message-color">Цвет</label>
+                            <input id="alternative-message-color" type="color" class="color-picker auto-connected-handlers" title="Изменить цвет" value="" data-storage-property="ALTERNATIVE_MESSAGE_COLOR" data-event="change" data-handler="alternativeMessageColorChangeHandler">
+                        </div>
+                    </div>
+                </div>
             </section>
 
         </main>
