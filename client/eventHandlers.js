@@ -1,6 +1,5 @@
 //изменился градиент
 const handleSetBackgroundGradientColors = (oldValue, newValue) => {
-    console.log(here);
     generateSectionsBackground();
 };
 
