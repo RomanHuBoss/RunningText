@@ -22,6 +22,7 @@ window.addEventListener("message", (event) => {
                         value = value.filter(elem => validate("COLOR", elem))
                     }
                 }
+                //console.log(key, value);
                 const validationResult = validate(key, value);
                 CURRENT_SETTINGS[key] = (value && validationResult) ? value : DEFAULT_SETTINGS[key];
             });

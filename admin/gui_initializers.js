@@ -41,6 +41,9 @@ const initializeGUIComponents = () => {
         refreshGradientColorPickerNumbers();
     }
 
+    const alternativeMessageEl = document.querySelector("[data-storage-property='ALTERNATIVE_MESSAGE']");
+    alternativeMessageEl.value = CURRENT_SETTINGS.ALTERNATIVE_MESSAGE;
+
     const alternativeMessageColorEl = document.querySelector("[data-storage-property='ALTERNATIVE_MESSAGE_COLOR']");
     alternativeMessageColorEl.value = CURRENT_SETTINGS.ALTERNATIVE_MESSAGE_COLOR;
 
