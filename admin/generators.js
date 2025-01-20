@@ -58,3 +58,19 @@ const createVideoSelector = () => {
     }).join('\n');
 };
 
+const fillMessagesTable = () => {
+    const messagesTable = document.querySelector('.messages-table');
+
+    CURRENT_SETTINGS.MESSAGES.forEach((message) => {
+        messagesTable.innerHTML += `
+            <div class="message-wrapper">
+                <div class="message">${message.text}</div>
+            </div>
+        `;
+
+        generateColorPicker(message.color, messagesTable, kind='message');
+    });
+
+
+
+};

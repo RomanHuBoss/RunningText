@@ -308,3 +308,24 @@ video {
 .alternative-message-elements input[type="color"] {
     margin-top: 0.3rem;
 }
+
+.messages-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.messages-table {
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.message-add-buttons-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}

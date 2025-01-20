@@ -52,6 +52,6 @@ const initializeGUIComponents = () => {
     createVideoSelector();
     setImagePreview();
     setVideoPreview();
-
+    fillMessagesTable();
 
 };
