@@ -47,14 +47,11 @@ const DEFAULT_SETTINGS = {
     //цвет любого сообщения, назначаемый по умолчанию
     DEFAULT_MESSAGE_COLOR: "#ffffff",
 
-    //набор сообщений
+    //набор сообщений и их цвета
     MESSAGES: [
 
     ],
 
-    //набор цветов сообщений
-    MESSAGES_COLORS: [
 
-    ],
 
 }

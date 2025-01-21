@@ -8,11 +8,20 @@
     - alternativeMessage - для альтернативного сообщения
     - message - для отдельного сообщения в бегущей строке
 */
-const generateColorPicker = (color, parentNode, kind = 'gradient') => {
+const generateColorPicker = (color, parentNode, kind) => {
     const wrapper = document.createElement('div');
+    
+    let callbackName = null;
+    if (kind === 'gradient') {
+        callbackName = "gradientColorsCollectionChangeHandler";
+    } else if (kind == 'alternativeMessage') {
+        callbackName = "alternativeMessageColorChangeHandler";
+    } else if (kind == 'message') {
+        callbackName = "messageCollectionChangeHandler";
+    }
 
     wrapper.innerHTML = `
-        <input type="color" class="color-picker" title="Изменить цвет" value="${color}" data-event="change" data-handler="${kind}ColorsCollectionChangeHandler">
+        <input type="color" class="color-picker" title="Изменить цвет" value="${color}" data-event="change" data-handler="${callbackName}">
     `;
 
     parentNode.appendChild(wrapper);
@@ -26,8 +35,52 @@ const generateColorPicker = (color, parentNode, kind = 'gradient') => {
 
     const colorPicker = wrapper.querySelector(".color-picker");
     connectHandlerToElement(colorPicker);
-
 };
+
+
+/*добавляет сообщение в список
+    position - позиция в списке
+        - first - в начало
+        - last - в конец
+    msgData - содержимое сообщения
+*/
+const addMessage = (position, msgData = null) => {
+    const messagesTableBody = document.querySelector('.messages-table-body');
+    const messagesQuantity = getDomElementsAsArray(document, '.messages-table-body .message-row').length;
+    const uid = Sha256.hash(String(Date.now().toPrecision(21) + messagesQuantity));
+    const messageHtml = `
+        <div class="message-row" data-uid=${uid}>
+            <div class="message-text">
+                <input type="text" data-event="change" data-handler="messageCollectionChangeHandler" value="${msgData ? msgData.text : CURRENT_SETTINGS.ALTERNATIVE_MESSAGE}">
+                <button class="delete-message-button red-color" title="Удалить сообщение">X</button>
+            </div>
+            <div class="message-color"></div>
+        </div>
+    `;
+
+    if (position === 'first') {
+        messagesTableBody.insertAdjacentHTML("afterbegin", messageHtml);
+    } else if (position === 'last') {
+        messagesTableBody.insertAdjacentHTML("beforeend", messageHtml);
+    }
+    
+    const messageRow = messagesTableBody.querySelector(`.message-row[data-uid="${uid}"`);
+
+    const messageInputField = messageRow.querySelector('.message-text input'); 
+    connectHandlerToElement(messageInputField);
+
+    const messageColorCell = messageRow.querySelector('.message-color');
+    generateColorPicker(msgData ? msgData.color : CURRENT_SETTINGS.DEFAULT_MESSAGE_COLOR, messageColorCell, 'message', messageCollectionChangeHandler);
+
+    const deleteMessageBtn = messageRow.querySelector(".delete-message-button");
+    deleteMessageBtn.addEventListener("click", () => deleteMessage(uid));
+
+    
+    if (!msgData) {
+        messageCollectionChangeHandler();
+    }
+};
+
 
 // маркирует цвета градиента по номерам
 const refreshGradientColorPickerNumbers = () => {
@@ -58,19 +111,3 @@ const createVideoSelector = () => {
     }).join('\n');
 };
 
-const fillMessagesTable = () => {
-    const messagesTable = document.querySelector('.messages-table');
-
-    CURRENT_SETTINGS.MESSAGES.forEach((message) => {
-        messagesTable.innerHTML += `
-            <div class="message-wrapper">
-                <div class="message">${message.text}</div>
-            </div>
-        `;
-
-        generateColorPicker(message.color, messagesTable, kind='message');
-    });
-
-
-
-};

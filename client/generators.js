@@ -56,8 +56,11 @@ const generateSections = () => {
 const getTextPresented = () => {
     let text = `<span style="color: ${CURRENT_SETTINGS.ALTERNATIVE_MESSAGE_COLOR}">${CURRENT_SETTINGS.ALTERNATIVE_MESSAGE}</span>`;
     
-    if (CURRENT_SETTINGS.MESSAGES.length) {
-        text = CURRENT_SETTINGS.MESSAGES.join('&nbsp;'.repeat(CURRENT_SETTINGS.DELIMETER_SIZE));
+    if (CURRENT_SETTINGS.MESSAGES.length) {  
+        console.log(CURRENT_SETTINGS.MESSAGES);
+        text = CURRENT_SETTINGS.MESSAGES.map(msgData => {
+            return `<span style="color: ${msgData.color}">${msgData.text}</span>`;
+        }).join('&nbsp;'.repeat(CURRENT_SETTINGS.DELIMETER_SIZE));
     }
     return text;
 };

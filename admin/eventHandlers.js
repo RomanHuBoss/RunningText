@@ -185,6 +185,33 @@ const setVideoPreview = () => {
     videoWrapper.innerHTML = `<video loop autoplay muted src="${CURRENT_SETTINGS.BACKGROUND_VIDEO}" type="video/mp4"/>`;
 };
 
+const deleteAllMessages = () => {
+    const result = window.confirm("Подтверждаете удаление сообщений?");
+    if (!result) {
+        return;
+    }    
+
+    const messagesTableBody = document.querySelector(".messages-table-body");    
+    messagesTableBody.innerHTML = "";
+    const key = "MESSAGES";
+    const value = [];
+    CURRENT_SETTINGS[key] = value;
+
+    console.log(`Sent message to storage to update "${key}" with value ${value}`);
+    setStorageProperty(key, value);
+};
+
+const deleteMessage = (uid) => {
+    const result = window.confirm("Подтверждаете удаление сообщения?");
+    if (!result) {
+        return;
+    }    
+
+    const messagesRow = document.querySelector(`.message-row[data-uid="${uid}"]`);    
+    messagesRow.remove();
+    messageCollectionChangeHandler();
+};
+
 
 //привязка обработчиков к визуальным элементам
 const autoConnectHandlers = () => {
@@ -192,7 +219,43 @@ const autoConnectHandlers = () => {
     elements.forEach((element) => {
         connectHandlerToElement(element);
     });
+
+    const addFirstMessageBtn = document.querySelector('#addFirstMessageBtn');
+    const addLastMessageBtn = document.querySelector('#addLastMessageBtn');
+    const deleteAllMessagesBtn = document.querySelector('#deleteAllMessagesBtn');
+    
+    addFirstMessageBtn.addEventListener('click', () => addMessage('first'));
+    addLastMessageBtn.addEventListener('click', () => addMessage('last'));
+    deleteAllMessagesBtn.addEventListener('click', deleteAllMessages);
 };
 
+const messageCollectionChangeHandler = () => {
+    const messages = [];
+    const proxyElement = document.querySelector(".messages-table-body");
 
+    const messageInputs = getDomElementsAsArray(proxyElement, ".message-text input");
+    const colorPickers = getDomElementsAsArray(proxyElement, ".color-picker");
 
+    messageInputs.forEach((_, idx) => {
+        messages.push({
+            text: messageInputs[idx].value,
+            color: colorPickers[idx].value,
+        });
+    });
+
+    console.log(`Send message to storage to update "${proxyElement.dataset.storageProperty}" with value`, messages);
+    setStorageProperty(proxyElement.dataset.storageProperty, JSON.stringify(messages));
+};
+
+const fillMessagesTable = () => {
+    try {
+        CURRENT_SETTINGS.MESSAGES = JSON.parse(CURRENT_SETTINGS.MESSAGES);
+        console.log(CURRENT_SETTINGS.MESSAGES);
+    } catch (Error) {
+        CURRENT_SETTINGS.MESSAGES = [];
+    }
+    CURRENT_SETTINGS.MESSAGES = CURRENT_SETTINGS.MESSAGES ? CURRENT_SETTINGS.MESSAGES : [];
+    CURRENT_SETTINGS.MESSAGES.forEach(msgData => {
+        addMessage('last', msgData);
+    });
+};

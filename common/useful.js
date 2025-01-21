@@ -104,11 +104,12 @@ const connectHandlerToElement = (element, additionalData = null) => {
     }
 };
 
-const convertToBeInsertedInMethodName= (txt) => {
+const convertToBeInsertedInMethodName = (txt) => {
     txt = txt.toLowerCase();
     txt = txt.replace(" ", "");
     txt = txt.split("_");
     txt = txt.map(elem => elem.charAt(0).toUpperCase() + elem.slice(1));
     txt = txt.join("");
     return txt;
-}
+};
+

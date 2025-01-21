@@ -132,14 +132,24 @@
 
                     <div class="messages-wrapper">
                         <div class="messages-table">
+                            <div class="messages-table-header">
+                                <div class="messages-table-header-text">Текст сообщения</div>
+                                <div class="messages-table-header-color">Цвет</div>
+                            </div>
 
-                        </div>
+                            <div class="messages-table-body" data-storage-property="MESSAGES">
 
-                        <div class="message-add-buttons-wrapper">
-                            <button class="button">Добавить сообщение в начало</button>
-                            <button class="button">Добавить сообщение в конец</button>
-                        </div>
+                            </div>
+                        </table>
+
                     </div>
+
+                    <div class="message-add-buttons-wrapper">
+                        <button id="addFirstMessageBtn" class="button">Добавить в начало списка</button>
+                        <button id="addLastMessageBtn" class="button">Добавить в конец списка</button>
+                        <button id="deleteAllMessagesBtn" class="button red-color">Удалить все</button>
+                    </div>
+                
                 </div>
             </section>
 
@@ -149,6 +159,7 @@
 
 </body>
 
+<script src="../common/sha-256.js"></script>
 <script src="../common/constants.js"></script>
 <script src="../common/validators.js"></script>
 <script src="../common/useful.js"></script>

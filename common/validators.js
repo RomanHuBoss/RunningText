@@ -38,7 +38,7 @@ const VALIDATORS = {
     ],
 
     //интервал допустимых значений числа пробелов между отдельными сообщениями бегущей строки
-    DELIMETER_SIZE__RANGE: [1, 30, 1],
+    DELIMETER_SIZE__RANGE: [1, 200, 1],
 };
 
 const validate = (key, value) => {

@@ -30,6 +30,15 @@ window.addEventListener("message", (event) => {
                         value = value.filter(elem => validate("COLOR", elem))
                     }
                 }
+
+                if (key === "MESSAGES") {
+                    try {
+                        value = JSON.parse(value);
+                    } catch (Error) {
+                        value = [];
+                    }
+                }
+    
                 const validationResult = validate(key, value);
                 CURRENT_SETTINGS[key] = (value && validationResult) ? value : DEFAULT_SETTINGS[key];
             });
@@ -45,11 +54,20 @@ window.addEventListener("message", (event) => {
                 }
             }
             const validationResult = validate(key, newValue);
+
+            if (key === "MESSAGES") {
+                try {
+                    newValue = JSON.parse(newValue);
+                } catch (Error) {
+                    newValue = [];
+                }
+            }
+
             CURRENT_SETTINGS[key] = (newValue && validationResult) ? newValue : DEFAULT_SETTINGS[key];
 
             const callback = eval(`handleSet${convertToBeInsertedInMethodName(key)}`);
-            console.log(callback);
             if (newValue !== oldValue && typeof callback === "function") {
+                console.log(`handleSet${convertToBeInsertedInMethodName(key)}`);
                 document.body.dispatchEvent(new CustomEvent(`handleSet${convertToBeInsertedInMethodName(key)}`, {
                     detail: { oldValue, newValue }
                 }));

@@ -24,6 +24,11 @@ const handleSetSectionsNumber = (oldValue, newValue) => {
     generateSections();
 };
 
+// изменилось число секций
+const handleSetDelimeterSize = (oldValue, newValue) => {
+    generateSections();
+};
+
 // изменился тип фона бегущей строки
 const handleSetBackgroundType = (oldValue, newValue) => {
     generateSectionsBackground();
@@ -45,15 +50,19 @@ const handleSetAlternativeMessageColor = (oldValue, newValue) => {
     generateSections();
 };
 
+const handleSetMessages = (oldValue, newValue) => {
+    generateSections();
+};
+
 const initEvents = () => {
     Object.keys(CURRENT_SETTINGS).forEach((key) => {
         try {
-            const eventName = `handleSet${convertToBeInsertedInMethodName(key)}`;
+            const eventName = `handleSet${convertToBeInsertedInMethodName(key)}`;            
             const callback = eval(`handleSet${convertToBeInsertedInMethodName(key)}`);
 
             document.body.addEventListener(eventName, callback);
         } catch (e) {
-            console.error(e);
+            console.warn(e);
         }
     });
 }
