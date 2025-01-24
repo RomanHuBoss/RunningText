@@ -113,3 +113,9 @@ const convertToBeInsertedInMethodName = (txt) => {
     return txt;
 };
 
+//проверка на null и undefined
+function isNullOrUndefined(value) {
+    return value === undefined || value === null;
+}
+  
+

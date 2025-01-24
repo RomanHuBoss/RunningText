@@ -78,3 +78,11 @@ const validate = (key, value) => {
 
     return true;
 };
+
+
+const SPECIAL_VALIDATORS = {
+    isNumber: (value) => isNaN(+value),
+    isInteger: (value) => Number.isInteger(value),
+    isFloat: (value) => !Number.isNaN(Number.parseFloat(value)),    
+    inRange: (value, min, max) => value >= min && value <= max,
+};

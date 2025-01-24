@@ -2,9 +2,24 @@ let CURRENT_SETTINGS = JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
 
 //включаемся по факту загрузки DOM-модели
 window.addEventListener("load", (e) =>  {
-    const callbacksBeforeInit = [startPreloading];
-    const callbacksAfterInit = [stopPreloading, initializeGUIComponents, autoConnectHandlers];
-    loadInitialSettingsFromStorage(callbacksBeforeInit, callbacksAfterInit);
+    //const callbacksBeforeInit = [startPreloading];
+    //const callbacksAfterInit = [stopPreloading, initializeGUIComponents, autoConnectHandlers];
+    //loadInitialSettingsFromStorage(callbacksBeforeInit, callbacksAfterInit);
+
+    const body = document.querySelector("body");
+
+    const integerInputComponent = new IntegerInputComponent({
+        storageProperty: "SECTIONS_NUMBER",
+        label: "Число секций бегущей строки",
+        min: 3,
+        max: 4,
+        step: 1,
+        validators: [
+            SPECIAL_VALIDATORS.isInteger,
+            SPECIAL_VALIDATORS.inRange,
+        ]
+    });    
+    body.insertAdjacentElement("afterbegin", numberInputComponent);
 });
 
 window.addEventListener("message", (event) => {
